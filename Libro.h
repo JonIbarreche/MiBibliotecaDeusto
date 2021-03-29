@@ -4,6 +4,14 @@
 #include <iostream>
 #include <string.h>
 
+typedef struct {
+	int nSerie;
+	char autor;
+    int fechaLanzamiento;
+} Libro;
+
+void print(Libro c);
+/*
 using namespace std;
 
 class Libro
@@ -27,5 +35,5 @@ public:
     void setNSerie(int nSerie);
     void setAutor(const string &autor);
     void setFechaLanzamiento(int fechaLanzamiento);
-};
+}; */
 #endif
