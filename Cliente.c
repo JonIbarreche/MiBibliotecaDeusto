@@ -7,20 +7,6 @@
 
 
 #include "Cliente.h"
-
-typedef struct
-{
-
-	char contrasenya;
-	char nombre;
-	int edad;
-	char email;
-	int puntos;
-	char libroTitulo;
-	char libroSerie;
-
-
-} Cliente;
-
 #include <math.h>
 #include <stdio.h>
+
