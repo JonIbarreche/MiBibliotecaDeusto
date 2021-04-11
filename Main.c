@@ -16,7 +16,8 @@ int main(void){
 			printf( "\n   Escoge una opción:" );
 	 	 	printf( "\n   1. Iniciar sesión como usuario." );
 	        printf( "\n   2. Iniciar sesión como trabajador." );
-	        printf( "\n   3. Salir.");
+	        printf( "\n   3. Registrarse." );
+	        printf( "\n   4. Salir.");
 
 	        scanf( "%d", &opcion );
 
@@ -69,10 +70,17 @@ int main(void){
                         		        break;
                         }
 
-
                         break;
 
-	                    case 3: printf( "\n   Adiós. ");
+	                    case 3: printf( "\n   Introduzca su usuario: ");
+	                    		scanf( "%d", &usuario );
+                        		printf( "\n   Introduzca su contraseña: ");
+                        		scanf( "%d", &contrasena );
+                        		printf( "\n   Registro con exito! ");
+                        		printf( "\n");
+                        break;
+
+	                    case 4: printf( "\n   Adiós. ");
 
 	                    break;
 
