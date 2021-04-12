@@ -1,6 +1,4 @@
 #include "Libro.h"
-
-#include <math.h>
 #include <stdio.h>
 
 void print(Libro c){

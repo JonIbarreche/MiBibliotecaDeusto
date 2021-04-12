@@ -19,6 +19,7 @@ int main(void){
 				printf( "\n   3. Registrarse." );
 				printf( "\n   4. Salir.");
 
+
 				scanf( "%d", &opcion );
 
 				switch ( opcion )

@@ -7,15 +7,16 @@
 
 #ifndef BIBLIOTECA_H_
 #define BIBLIOTECA_H_
-
+#include "Libro.h"
 typedef struct
 {
+	int Usuario;
+	int contrasena;
+	Libro libros [];
 
-	char clienteContrasenya;
-	char libroSerie;
-	char trabajadoresContrasenya;
 
 } Biblioteca;
+
 
 
 #endif /* BIBLIOTECA_H_ */
