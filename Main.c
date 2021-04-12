@@ -97,6 +97,8 @@ int main(void){
 							scanf( "%d", &contrasena );
 							printf( "\n   Registro con exito! ");
 							printf( "\n");
+
+
 					break;
 
 					case 4: printf( "\n   Adiós. ");
