@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "Libro.h"
 #include "Cliente.h"
 #include "Biblioteca.h"
@@ -11,6 +12,16 @@ int main(void){
 	int usuario;
 	int contrasena;
 	bool bucle = true;
+
+
+	char nombre[20];
+		char clave[20];
+
+		char cadena[100];
+
+		FILE *fichero;
+
+
 	while (bucle){
 		printf("Menu Principal\n\n");
 		printf( "\n   Escoge una opción:" );
@@ -99,4 +110,53 @@ int main(void){
 	}
 
 	return 0;
+
+	if ((fichero = fopen( "usuarios.txt", "at" )) == NULL) {
+			printf( "No se puede abrir el fichero.\n" );
+			exit( 1 );
+		}
+
+
+		do {
+			printf( "\n\n" );
+			printf( "Nombre usuario: " );
+			fflush(stdin);
+	 		fgets(cadena, 20, stdin);
+			sscanf(cadena, "%s", nombre);
+
+			if (strcmp(nombre,"fin") != 0) {
+				printf( "clave: " );
+				fflush( stdin );
+				fgets(cadena, 20, stdin);
+				sscanf(cadena, "%s", clave);
+
+				/* Guarda el registro en el fichero */
+				fprintf(fichero, "%s %s\n", nombre, clave);
+			}
+		} while (strcmp(nombre,"fin")!= 0);
+
+		fclose( fichero );
+
+		char nombre_buscar[20];
+		printf( "\n\n" );
+		printf( "Nombre usuario a buscar: " );
+		fflush(stdin);
+		fgets(cadena, 20, stdin);
+		sscanf(cadena, "%s", nombre_buscar);
+
+		if ((fichero = fopen( "usuarios.txt", "rt" )) == NULL) {
+			printf( "No se puede abrir el fichero.\n" );
+			exit( 1 );
+		}
+
+		while(fscanf(fichero, "%s %s", nombre, clave) != EOF ) {
+			if (strcmp(nombre_buscar, nombre) == 0) {
+				printf( "Nombre usuario: %s\n",   nombre );
+				printf( "Clave: %s\n", clave);
+			}
+		}
+
+		fclose( fichero );
+
+		return EXIT_SUCCESS;
 }
