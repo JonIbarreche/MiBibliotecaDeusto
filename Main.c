@@ -16,11 +16,9 @@ int main(void){
 
 	char nombre[20];
 		char clave[20];
-
 		char cadena[100];
-
 		FILE *fichero;
-
+		char nombre_buscar[20];
 
 	while (bucle){
 		printf("Menu Principal\n\n");
@@ -89,14 +87,38 @@ int main(void){
 
 					break;
 
-					case 3: printf( "\n   Introduzca su usuario: ");
-						fflush(stdin);
-							scanf( "%d", &usuario );
-							printf( "\n   Introduzca su contraseña: ");
-								fflush(stdin);
-							scanf( "%d", &contrasena );
-							printf( "\n   Registro con exito! ");
-							printf( "\n");
+					case 3:
+
+						if ((fichero = fopen( "usuarios.txt", "at" )) == NULL) {
+										printf( "No se puede abrir el fichero.\n" );
+										exit( 1 );
+									}
+
+
+
+									do {
+										printf( "\n\n" );
+										printf( "Introduzca su usuario: " );
+										fflush(stdin);
+								 		fgets(cadena, 20, stdin);
+										sscanf(cadena, "%s", nombre);
+
+										if (strcmp(nombre,"fin") != 0) {
+											printf( "Introduzca su contraseña:  " );
+											fflush( stdin );
+											fgets(cadena, 20, stdin);
+											sscanf(cadena, "%s", clave);
+											//printf( "\n   Registro con exito! ");
+
+											/* Guarda el registro en el fichero */
+											fprintf(fichero, "%s %s\n", nombre, clave);
+
+										}
+									} while (strcmp(nombre,"fin")!= 0);
+
+									fclose( fichero );
+
+
 
 
 					break;
@@ -113,39 +135,11 @@ int main(void){
 
 	return 0;
 
-	if ((fichero = fopen( "usuarios.txt", "at" )) == NULL) {
-			printf( "No se puede abrir el fichero.\n" );
-			exit( 1 );
-		}
-
-
-		do {
-			printf( "\n\n" );
-			printf( "Nombre usuario: " );
-			fflush(stdin);
-	 		fgets(cadena, 20, stdin);
-			sscanf(cadena, "%s", nombre);
-
-			if (strcmp(nombre,"fin") != 0) {
-				printf( "clave: " );
-				fflush( stdin );
-				fgets(cadena, 20, stdin);
-				sscanf(cadena, "%s", clave);
-
-				/* Guarda el registro en el fichero */
-				fprintf(fichero, "%s %s\n", nombre, clave);
-			}
-		} while (strcmp(nombre,"fin")!= 0);
-
-		fclose( fichero );
-
-		char nombre_buscar[20];
-		printf( "\n\n" );
-		printf( "Nombre usuario a buscar: " );
-		fflush(stdin);
-		fgets(cadena, 20, stdin);
-		sscanf(cadena, "%s", nombre_buscar);
-
+									printf( "\n\n" );
+									printf( "Nombre usuario a buscar: " );
+									fflush(stdin);
+									fgets(cadena, 20, stdin);
+									sscanf(cadena, "%s", nombre_buscar);
 		if ((fichero = fopen( "usuarios.txt", "rt" )) == NULL) {
 			printf( "No se puede abrir el fichero.\n" );
 			exit( 1 );
