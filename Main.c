@@ -9,16 +9,16 @@
 int main(void){
 	setbuf(stdout, NULL);
 	int opcion;
-	int usuario;
-	int contrasena;
 	bool bucle = true;
 
 
 	char nombre[20];
-		char clave[20];
-		char cadena[100];
-		FILE *fichero;
-		char nombre_buscar[20];
+	char clave[20];
+	char cadena[100];
+	FILE *fichero;
+	char nombre_buscar[20];
+	char clave_buscar[20];
+	bool encontrado;
 
 	while (bucle){
 		printf("Menu Principal\n\n");
@@ -34,56 +34,97 @@ int main(void){
 				{
 					case 1: printf( "\n   Introduzca su usuario: ");
 							fflush(stdin);
-							scanf( "%d", &usuario );
+							scanf( "%s", nombre_buscar );
 							printf( "\n   Introduzca su contraseña: ");
 							fflush(stdin);
-							scanf( "%d", &contrasena );
-							printf( "\n   Inicio de sesión con exito! ");
-							printf( "\n");
-							printf( "\n   Seleccione acción: ");
-							printf( "\n   1. Reservar libro. ");
-							printf( "\n   2. Devolver libro. ");
-							fflush(stdin);
-							scanf( "%d", &opcion );
+							scanf( "%s", clave_buscar );
 
-							switch (opcion){
-
-									case 1: printf("\n Libro reservado");
-											break;
-									case 2: printf("\n Libro devuelto");
-											break;
+							if ((fichero = fopen( "usuarios.txt", "rt" )) == NULL) {
+								printf( "No se puede abrir el fichero.\n" );
+								exit( 1 );
 							}
 
+							encontrado = false;
+							while(fscanf(fichero, "%s %s", nombre, clave) != EOF ) {
+								if (strcmp(nombre, nombre_buscar) == 0 && strcmp(clave, clave_buscar) == 0) {
+									encontrado = true;
+								}
+							}
+
+							fclose( fichero );
+
+							if (encontrado) {
+								printf( "\n   Inicio de sesión con exito! ");
+								printf( "\n");
+								printf( "\n   Seleccione acción: ");
+								printf( "\n   1. Reservar libro. ");
+								printf( "\n   2. Devolver libro. ");
+								fflush(stdin);
+								scanf( "%d", &opcion );
+
+								switch (opcion){
+
+										case 1: printf("\n Libro reservado");
+												break;
+										case 2: printf("\n Libro devuelto");
+												break;
+								}
+								printf( "\n\n\n");
+							} else {
+								printf( "\n   Usuario - Contraseña no registrado! ");
+								printf( "\n\n\n");
+							}
 
 							break;
 
 					case 2: printf( "\n   Introduzca su usuario: ");
-						fflush(stdin);
-							scanf( "%d", &usuario );
+							fflush(stdin);
+							scanf( "%s", nombre_buscar );
 							printf( "\n   Introduzca su contraseña: ");
-								fflush(stdin);
-							scanf( "%d", &contrasena );
-							printf( "\n   Inicio de sesión con exito! ");
-							printf( "\n");
-							printf( "\n   Seleccione acción: ");
-							printf( "\n   1. Reservar libro. ");
-							printf( "\n   2. Devolver libro. ");
-							printf( "\n   3. Añadir libro. ");
-							printf( "\n   4. Eliminar libro. ");
-								fflush(stdin);
-							scanf( "%d", &opcion );
+							fflush(stdin);
+							scanf( "%s", clave_buscar );
 
-					switch (opcion){
+							if ((fichero = fopen( "usuarios.txt", "rt" )) == NULL) {
+								printf( "No se puede abrir el fichero.\n" );
+								exit( 1 );
+							}
 
-							case 1: printf("\n Libro reservado.");
-									break;
-							case 2: printf("\n Libro devuelto.");
-									break;
-							case 3: printf("\n Libro añadido.");
-									break;
-							case 4: printf("\n Libro eliminado.");
-									break;
-					}
+							encontrado = false;
+							while(fscanf(fichero, "%s %s", nombre, clave) != EOF ) {
+								if (strcmp(nombre, nombre_buscar) == 0 && strcmp(clave, clave_buscar) == 0) {
+									encontrado = true;
+								}
+							}
+
+							fclose( fichero );
+
+							if (encontrado) {
+								printf( "\n   Inicio de sesión con exito! ");
+								printf( "\n");
+								printf( "\n   Seleccione acción: ");
+								printf( "\n   1. Reservar libro. ");
+								printf( "\n   2. Devolver libro. ");
+								printf( "\n   3. Añadir libro. ");
+								printf( "\n   4. Eliminar libro. ");
+									fflush(stdin);
+								scanf( "%d", &opcion );
+
+								switch (opcion){
+
+									case 1: printf("\n Libro reservado.");
+											break;
+									case 2: printf("\n Libro devuelto.");
+											break;
+									case 3: printf("\n Libro añadido.");
+											break;
+									case 4: printf("\n Libro eliminado.");
+											break;
+								}
+								printf( "\n\n\n");
+							} else {
+								printf( "\n   Usuario - Contraseña no registrado! ");
+								printf( "\n\n\n");
+							}
 
 					break;
 
@@ -108,7 +149,7 @@ int main(void){
 											fflush( stdin );
 											fgets(cadena, 20, stdin);
 											sscanf(cadena, "%s", clave);
-											//printf( "\n   Registro con exito! ");
+											printf( "\n   Registro con exito! ");
 
 											/* Guarda el registro en el fichero */
 											fprintf(fichero, "%s %s\n", nombre, clave);
